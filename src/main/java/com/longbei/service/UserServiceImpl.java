@@ -9,6 +9,8 @@ import com.longbei.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author zhangy
  * @version 1.0
@@ -44,5 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int update(User user) {
         return userMapper.update(user);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userMapper.getAll();
     }
 }

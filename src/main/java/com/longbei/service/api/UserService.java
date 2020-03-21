@@ -2,6 +2,8 @@ package com.longbei.service.api;
 
 import com.longbei.bean.User;
 
+import java.util.List;
+
 /**
  * @author zhangy
  * @version 1.0
@@ -41,5 +43,11 @@ public interface UserService {
      * @return 返回修改数
      */
     public int update(User user);
+
+    /**
+     * 获取所有用户列表
+     * @return
+     */
+    public List<User> getAll();
 
 }

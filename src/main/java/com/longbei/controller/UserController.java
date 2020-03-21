@@ -5,6 +5,8 @@ import com.longbei.service.api.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author zhangy
  * @version 1.0
@@ -63,6 +65,16 @@ public class UserController {
     public int delete(@PathVariable("name") String name) {
         System.out.println("method    delete   invoke...");
         return userServiceImpl.delete(name);
+    }
+
+    /**
+     * 获取所有用户列表
+     * @return
+     */
+    @RequestMapping("/user/getAll")
+    public List<User> getAll(){
+        System.out.println("getAll user list invoke...");
+        return userServiceImpl.getAll();
     }
 
 }

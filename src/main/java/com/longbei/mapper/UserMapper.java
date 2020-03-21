@@ -6,6 +6,8 @@ import com.longbei.common.RedisKeyConstant;
 import com.longbei.common.RedisType;
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 /**
  * @author zhangy
  * @version 1.0
@@ -53,5 +55,12 @@ public interface UserMapper {
      */
     @Update({"update user set name=#{name},address=#{address} where id=#{id}"})
     public int update(User user);
+
+    /**
+     * 获取所有用户列表
+     * @return
+     */
+    @Select({"select * from user"})
+    public List<User> getAll();
 
 }
