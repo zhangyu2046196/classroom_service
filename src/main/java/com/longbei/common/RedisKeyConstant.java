@@ -1,5 +1,7 @@
 package com.longbei.common;
 
+import com.google.common.collect.ImmutableMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,10 +26,7 @@ public class RedisKeyConstant {
     /**
      * 表对应的key前缀和使用的数据库字段
      */
-    public static Map<String, RedisKeyBean> keyMap = new HashMap<>();
+    public static ImmutableMap<String, RedisKeyBean> keyMap = ImmutableMap.of("student", new RedisKeyBean(STUDENT_PREFIX_KEY, "id"));
 
-    static {
-        keyMap.put("student", new RedisKeyBean(STUDENT_PREFIX_KEY, "id"));
-    }
 
 }
