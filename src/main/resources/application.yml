@@ -1,0 +1,112 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/longbei
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+#   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  redis:
+    password: 123456
+    sentinel:
+      master: mymaster
+      nodes: 192.168.1.19:26379,192.168.1.20:26379,192.168.1.21:26379
+    timeout: 6000ms
+    jedis:
+      pool:
+        max-active: 1024  #最大连接数
+        max-wait: 20000  #连接池最大等待时间
+        max-idle: 200  #最大空闲
+
+  kafka:
+          bootstrap-servers: 192.168.1.18:9092,192.168.1.19:9092,192.168.1.20:9092
+          producer:
+              # 重试次数
+              retries: 3
+              # 批量发送的消息数量
+              batch-size: 16384
+              # 32MB的批处理缓冲区
+              buffer-memory: 33554432
+          consumer:
+              # 默认消费者组
+              group-id: longbei
+              # 最早未被消费的offset
+              auto-offset-reset: earliest      #latest 如果有已提交的offset从已提交的开始消费，没有则从新消息开始消费
+              # 批量一次最大拉取数据量
+              max-poll-records: 1000
+              # 自动提交
+              auto-commit-interval: 1000
+              enable-auto-commit: false
+              key-deserializer: com.alibaba.otter.canal.client.kafka.MessageDeserializer
+              value-deserializer: com.alibaba.otter.canal.client.kafka.MessageDeserializer
+
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+logging:
+  #日志文件
+  config: classpath:logback.xml
+
+#xxl:
+#  job:
+#    admin:
+#      #调度中心部署跟地址：如调度中心集群部署存在多个地址则用逗号分隔。
+#      #执行器将会使用该地址进行"执行器心跳注册"和"任务结果回调"。
+#      addresses: http://localhost:8089/xxl-job-admin
+#
+#    accessToken:
+#
+#    #分别配置执行器的名称、ip地址、端口号
+#    #注意：如果配置多个执行器时，防止端口冲突
+#    executor:
+#      appname: classroomservice
+#      ip: 127.0.0.1
+#      port: 9999
+#
+#      #执行器运行日志文件存储的磁盘位置，需要对该路径拥有读写权限
+#      logpath: /data/applogs/xxl-job/jobhandler
+#      #执行器Log文件定期清理功能，指定日志保存天数，日志文件过期自动删除。限制至少保持3天，否则功能不生效；
+#      #-1表示永不删除
+#      logretentiondays: -1
+
+lbredis:
+  database0: 0
+  database1: 1
+
+
+topicName:
+    topic1: order.student
+    topic2: order.product
+
+
+
+
+
+
+#kafka:
+#  zkAddress: 192.168.1.18:2181,192.168.1.19:2181,192.168.1.20:2181
+#  address: 192.168.1.18:9092,192.168.1.19:9092,192.168.1.20:9092
+#  topicName: order.student
+#  groupId: longbei
+#  partition: 0
